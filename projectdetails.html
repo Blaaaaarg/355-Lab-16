@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Details</title>
+        <link rel="stylesheet" type="text/css" href="/lab16.css">
+        <script>
+            $(document).ready(function () {
+                $.ajax({
+                    url: "projectdetails/select"
+                    type: "POST",
+                    contentType: "application/json",
+                    processData: false,
+                    complete: function (data) {
+                        $('div#content').html(data.responseText);
+                    }
+               });
+        // Retrieve data from MySQL for a specific user 
+              $('#user-submit').click(function () { 
+                         var payload = { 
+                              id: $('#output').val(), // prob broken here
+                           }; 
+                             
+                            $.ajax({ 
+                                url: "/projectdetails", 
+                                type: "POST", 
+                                contentType: "application/json", 
+                                processData: false, 
+                                data: JSON.stringify(payload), 
+                                complete: function (data) { 
+                                    $('#proj-selector').html(data.responseText);  // prob broken here
+                              } 
+                           });
+                      });
+            });
+        </script>
+    </head>
+    <body>
+        <div id="header">
+            Details
+        </div>
+        <div id="menu">
+            <a id="menulink" href="/">Home</a>
+            <a id="menulink" href="/login/">Sign In</a>
+            <a id="menulink" href="/projects/">Projects</a>
+            <a id="menulink" href="/teams/">Teams</a>
+            <a id="menulink" href="/settings/">Settings</a>
+            <a id="menulink" href="/help">Help/About</a>
+        </div>
+        <div id="content">
+            <form action="" method="GET">
+                <select id='projects' name='proj-selector'>
+                    <option value="1"></option>
+                    <option value="2"></option>
+                </select>
+                <input type="submit">
+            </form>
+        </div>
+        <div id="footer">
+            Updated 4/14/2014
+        </div>
+    </body>
+</html>
